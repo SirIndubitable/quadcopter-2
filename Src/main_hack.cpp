@@ -47,15 +47,22 @@ int main(void)
   HAL_Init();
 
   /* Initialize all configured peripherals */
+  LED green_led(GPIOD, GPIO_PIN_12);
+  LED orange_led(GPIOD, GPIO_PIN_13);
+  LED red_led(GPIOD, GPIO_PIN_14);
   LED blue_led(GPIOD, GPIO_PIN_15);
 
+  LED* leds[4] = { &green_led, &orange_led, &red_led, &blue_led };
+  int led_num = 0;
   /* Infinite loop */
   while (true)
   {
     for(int i = 0; i < 1000000; i++) 
     {
-
     }
-    blue_led.Toggle();
+
+    leds[led_num]->Off();
+    led_num = (led_num + 1) % 4;
+    leds[led_num]->On();
   }
 }

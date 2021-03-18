@@ -1,15 +1,21 @@
 /****************************************************************************************
-* File: led.cpp
+* File: accelerometer.h
 *
-* Description: The simple object that handles LEDs
+* Description: The definition of the accelerometer object
 *
 * Created by Matt Olson
 ****************************************************************************************/
+#ifndef _ISENSORCOMMUNICATION_H
+#define _ISENSORCOMMUNICATION_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
-#include "led.h"
+#include "stm32f4xx_hal.h"
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -18,6 +24,15 @@
 /*---------------------------------------------------------------------------------------
 *                                        TYPES
 *--------------------------------------------------------------------------------------*/
+class ISensorCommunication
+{
+private:
+    
+public:
+    virtual void Init(void) = 0;
+    virtual void ReadReg(uint8_t regAddress, uint8_t* data, uint16_t dataSize) = 0;
+    virtual void WriteReg(uint8_t regAddress, uint8_t* outData, uint16_t dataSize) = 0;
+};
 
 /*---------------------------------------------------------------------------------------
 *                                   MEMORY CONSTANTS
@@ -27,26 +42,8 @@
 *                                      VARIABLES
 *--------------------------------------------------------------------------------------*/
 
-/*---------------------------------------------------------------------------------------
-*                                     PROCEDURES
-*--------------------------------------------------------------------------------------*/
-LED::LED(GPIO_TypeDef* gpio, uint16_t pin)
-{
-    m_gpio = gpio;
-    m_pin = pin;
+#ifdef __cplusplus
 }
+#endif
 
-void LED::On()
-{
-    HAL_GPIO_WritePin(m_gpio, m_pin, GPIO_PIN_SET);
-}
-
-void LED::Off()
-{
-    HAL_GPIO_WritePin(m_gpio, m_pin, GPIO_PIN_RESET);
-}
-
-void LED::Toggle()
-{
-    HAL_GPIO_TogglePin(m_gpio, m_pin);
-}
+#endif

@@ -33,7 +33,6 @@ private:
     uint16_t m_pin;
 public:
     LED(GPIO_TypeDef* gpio, uint16_t pin);
-    void Init();
     void On();
     void Off();
     void Toggle();

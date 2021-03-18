@@ -1,15 +1,21 @@
 /****************************************************************************************
-* File: led.cpp
+* File: lis3dsh.h
 *
-* Description: The simple object that handles LEDs
+* Description: The definition of the lis3dsh object
 *
 * Created by Matt Olson
 ****************************************************************************************/
+#ifndef _LIS3DSH_H
+#define _LIS3DSH_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
-#include "led.h"
+#include "iSensorCommunication.h"
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -18,6 +24,16 @@
 /*---------------------------------------------------------------------------------------
 *                                        TYPES
 *--------------------------------------------------------------------------------------*/
+class LIS3DSH
+{
+private:
+    ISensorCommunication* m_sensor;
+public:
+    float X, Y, Z;
+    LIS3DSH(ISensorCommunication* sensor);
+    void Init(void);
+    void UpdateData(void);
+};
 
 /*---------------------------------------------------------------------------------------
 *                                   MEMORY CONSTANTS
@@ -27,26 +43,8 @@
 *                                      VARIABLES
 *--------------------------------------------------------------------------------------*/
 
-/*---------------------------------------------------------------------------------------
-*                                     PROCEDURES
-*--------------------------------------------------------------------------------------*/
-LED::LED(GPIO_TypeDef* gpio, uint16_t pin)
-{
-    m_gpio = gpio;
-    m_pin = pin;
+#ifdef __cplusplus
 }
+#endif
 
-void LED::On()
-{
-    HAL_GPIO_WritePin(m_gpio, m_pin, GPIO_PIN_SET);
-}
-
-void LED::Off()
-{
-    HAL_GPIO_WritePin(m_gpio, m_pin, GPIO_PIN_RESET);
-}
-
-void LED::Toggle()
-{
-    HAL_GPIO_TogglePin(m_gpio, m_pin);
-}
+#endif

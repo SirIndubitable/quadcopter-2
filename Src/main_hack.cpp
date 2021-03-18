@@ -10,8 +10,12 @@
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
+#include <cstdio>
+
 #include "main.h"
 #include "led.h"
+#include "spi.h"
+#include "lis3dsh.h"
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -28,10 +32,31 @@
 /*---------------------------------------------------------------------------------------
 *                                      VARIABLES
 *--------------------------------------------------------------------------------------*/
+LED green_led(GPIOD, GPIO_PIN_12);
+LED orange_led(GPIOD, GPIO_PIN_13);
+LED red_led(GPIOD, GPIO_PIN_14);
+LED blue_led(GPIOD, GPIO_PIN_15);
+
+SPI accel_spi(&hspi1, ACCEL_CS_GPIO_Port, ACCEL_CS_Pin);
+LIS3DSH accel(&accel_spi);
 
 /*---------------------------------------------------------------------------------------
 *                                     PROCEDURES
 *--------------------------------------------------------------------------------------*/
+
+/*****************************************************************************
+* Function: delay
+*
+* Description: Busy waits for a set number of miliseconds
+*****************************************************************************/
+void delay(uint32_t ms)
+{
+    uint32_t endTick = HAL_GetTick() + ms;
+    while (endTick > HAL_GetTick())
+    {
+        asm("nop");
+    }
+}
 
 /*****************************************************************************
 * Function: main
@@ -40,29 +65,37 @@
 *****************************************************************************/
 int main(void)
 {
-  /* MCU Configuration--------------------------------------------------------*/
-  InitHardware();
+    /* MCU Configuration--------------------------------------------------------*/
+    InitHardware();
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
 
-  /* Initialize all configured peripherals */
-  LED green_led(GPIOD, GPIO_PIN_12);
-  LED orange_led(GPIOD, GPIO_PIN_13);
-  LED red_led(GPIOD, GPIO_PIN_14);
-  LED blue_led(GPIOD, GPIO_PIN_15);
+    /* Initialize all configured peripherals */
+    accel.Init();
 
-  LED* leds[4] = { &green_led, &orange_led, &red_led, &blue_led };
-  int led_num = 0;
-  /* Infinite loop */
-  while (true)
-  {
-    for(int i = 0; i < 1000000; i++) 
+    while(true)
     {
+        accel.UpdateData();
+        if (accel.Y > 0)
+        {
+            orange_led.On();
+            blue_led.Off();
+        }
+        else
+        {
+            orange_led.Off();
+            blue_led.On();
+        }
+        if (accel.X > 0)
+        {
+            green_led.Off();
+            red_led.On();
+        }
+        else
+        {
+            green_led.On();
+            red_led.Off();
+        }
     }
-
-    leds[led_num]->Off();
-    led_num = (led_num + 1) % 4;
-    leds[led_num]->On();
-  }
 }

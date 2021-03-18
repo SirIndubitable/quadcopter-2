@@ -1,7 +1,7 @@
 /****************************************************************************************
-* File: led.cpp
+* File: spi.cpp
 *
-* Description: The simple object that handles LEDs
+* Description: SPI communication protocol object
 *
 * Created by Matt Olson
 ****************************************************************************************/
@@ -9,7 +9,7 @@
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
-#include "led.h"
+#include "spi.h"
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -30,23 +30,40 @@
 /*---------------------------------------------------------------------------------------
 *                                     PROCEDURES
 *--------------------------------------------------------------------------------------*/
-LED::LED(GPIO_TypeDef* gpio, uint16_t pin)
+SPI::SPI(SPI_HandleTypeDef* spi, GPIO_TypeDef* gpio, uint16_t pin)
 {
-    m_gpio = gpio;
-    m_pin = pin;
+    this->m_spi = spi;
+    this->m_chip_select_gpio = gpio;
+    this->m_chip_select_pin = pin;
 }
 
-void LED::On()
+void SPI::Init(void)
 {
-    HAL_GPIO_WritePin(m_gpio, m_pin, GPIO_PIN_SET);
+    this->CS_Set();
 }
 
-void LED::Off()
+void SPI::CS_Reset(void)
 {
-    HAL_GPIO_WritePin(m_gpio, m_pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(this->m_chip_select_gpio, this->m_chip_select_pin, GPIO_PIN_RESET); //CS --> Low
 }
 
-void LED::Toggle()
+void SPI::CS_Set(void)
 {
-    HAL_GPIO_TogglePin(m_gpio, m_pin);
+    HAL_GPIO_WritePin(this->m_chip_select_gpio, this->m_chip_select_pin, GPIO_PIN_SET); //CS --> High
+}
+
+void SPI::ReadReg(uint8_t regAddress, uint8_t* data, uint16_t dataSize)
+{
+    this->CS_Reset();
+    HAL_SPI_Transmit(this->m_spi, &regAddress, 1, 50);
+    HAL_SPI_Receive(this->m_spi, data, dataSize, 50);
+    this->CS_Set();
+}
+
+void SPI::WriteReg(uint8_t regAddress, uint8_t* outData, uint16_t dataSize)
+{
+    this->CS_Reset();
+    HAL_SPI_Transmit(this->m_spi, &regAddress, 1, 50);
+    HAL_SPI_Transmit(this->m_spi, outData, dataSize, 50);
+    this->CS_Set();
 }

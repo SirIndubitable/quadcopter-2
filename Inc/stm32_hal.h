@@ -1,12 +1,13 @@
 /****************************************************************************************
-* File: i2c.h
+* File: stm32_hal.h
 *
-* Description: The definition of the i2c object
+* Description: The actual HAL include... idk why stm thought having the device name
+*              in the name of the hal header made sense?
 *
 * Created by Matt Olson
 ****************************************************************************************/
-#ifndef _I2C_H
-#define _I2C_H
+#ifndef STM32_HAL_H_
+#define STM32_HAL_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,9 +16,11 @@ extern "C" {
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
-#include "stm32_hal.h"
-
-#include "iSensorCommunication.h"
+#if defined (STM32F303xC)
+    #include "stm32f3xx.h"
+#elif defined (STM32F407xx)
+    #include "stm32f4xx.h"
+#endif
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -26,16 +29,6 @@ extern "C" {
 /*---------------------------------------------------------------------------------------
 *                                        TYPES
 *--------------------------------------------------------------------------------------*/
-class I2C : public ISensorCommunication
-{
-private:
-    I2C_HandleTypeDef* m_i2c;
-public:
-    I2C(I2C_HandleTypeDef* i2c);
-    void Init(void);
-    void ReadReg(uint8_t regAddress, uint8_t* data, uint16_t dataSize);
-    void WriteReg(uint8_t regAddress, uint8_t* outData, uint16_t dataSize);
-};
 
 /*---------------------------------------------------------------------------------------
 *                                   MEMORY CONSTANTS
@@ -49,4 +42,4 @@ public:
 }
 #endif
 
-#endif
+#endif // STM32_HAL_H_

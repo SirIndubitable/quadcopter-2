@@ -15,9 +15,7 @@ extern "C" {
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
-#include "stm32f3xx_hal.h"
-#include "stm32f3xx_hal_gpio.h"
-#include "stm32f3xx_hal_spi.h"
+#include "stm32_hal.h"
 
 #include "iSensorCommunication.h"
 

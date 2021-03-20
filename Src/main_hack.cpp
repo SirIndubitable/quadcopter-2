@@ -15,7 +15,12 @@
 #include "main.h"
 #include "led.h"
 #include "i2c.h"
-#include "lsm303agr.h"
+
+#if defined (STM32F303xC)
+    #include "Sensors/lsm303agr.h"
+#elif defined (STM32F407xx)
+    #include "Sensors/lis3dsh.h"
+#endif
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -37,8 +42,13 @@ LED led_N(LED_N_GPIO_Port, LED_N_Pin);
 LED led_E(LED_E_GPIO_Port, LED_E_Pin);
 LED led_S(LED_S_GPIO_Port, LED_S_Pin);
 
-I2C accel_i2c(&hi2c1);
-LSM303AGR accel(&accel_i2c);
+#if defined (STM32F303xC)
+    I2C accel_i2c(&hi2c1);
+    LSM303AGR accel(&accel_i2c);
+#elif defined (STM32F407xx)
+    SPI accel_spi(&hspi1, ACCEL_CS_GPIO_Port, ACCEL_CS_Pin);
+    LIS3DSH accel(&accel_spi);
+#endif
 
 /*---------------------------------------------------------------------------------------
 *                                     PROCEDURES

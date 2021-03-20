@@ -57,6 +57,7 @@ Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c \
 Src/system_stm32f3xx.c
 
 CPP_SOURCES += $(wildcard Src/*.cpp)
+CPP_SOURCES += $(wildcard Src/**/*.cpp)
 
 # ASM sources
 ASM_SOURCES =  \
@@ -105,7 +106,7 @@ AS_DEFS =
 # C defines
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
--DSTM32F303xC
+-DSTM32F303xC 
 
 
 # AS includes

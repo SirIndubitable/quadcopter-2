@@ -14,8 +14,8 @@
 
 #include "main.h"
 #include "led.h"
-#include "spi.h"
-#include "lis3dsh.h"
+#include "i2c.h"
+#include "lsm303agr.h"
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -32,13 +32,13 @@
 /*---------------------------------------------------------------------------------------
 *                                      VARIABLES
 *--------------------------------------------------------------------------------------*/
-LED green_led(GPIOD, GPIO_PIN_12);
-LED orange_led(GPIOD, GPIO_PIN_13);
-LED red_led(GPIOD, GPIO_PIN_14);
-LED blue_led(GPIOD, GPIO_PIN_15);
+LED led_W(LED_W_GPIO_Port, LED_W_Pin);
+LED led_N(LED_N_GPIO_Port, LED_N_Pin);
+LED led_E(LED_E_GPIO_Port, LED_E_Pin);
+LED led_S(LED_S_GPIO_Port, LED_S_Pin);
 
-SPI accel_spi(&hspi1, ACCEL_CS_GPIO_Port, ACCEL_CS_Pin);
-LIS3DSH accel(&accel_spi);
+I2C accel_i2c(&hi2c1);
+LSM303AGR accel(&accel_i2c);
 
 /*---------------------------------------------------------------------------------------
 *                                     PROCEDURES
@@ -79,23 +79,23 @@ int main(void)
         accel.UpdateData();
         if (accel.Y > 0)
         {
-            orange_led.On();
-            blue_led.Off();
+            led_N.On();
+            led_S.Off();
         }
         else
         {
-            orange_led.Off();
-            blue_led.On();
+            led_N.Off();
+            led_S.On();
         }
         if (accel.X > 0)
         {
-            green_led.Off();
-            red_led.On();
+            led_W.Off();
+            led_E.On();
         }
         else
         {
-            green_led.On();
-            red_led.Off();
+            led_W.On();
+            led_E.Off();
         }
     }
 }

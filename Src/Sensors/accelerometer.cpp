@@ -1,24 +1,16 @@
 /****************************************************************************************
-* File: lis3dsh.h
+* File: accelerometer.cpp
 *
-* Description: The definition of the lis3dsh object
+* Description: 
 *
 * Created by Matt Olson
 ****************************************************************************************/
-#ifndef _LIS3DSH_H
-#define _LIS3DSH_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
-#include "stm32_hal.h"
-#include "iSensorCommunication.h"
+#include <cstring>
 #include "Sensors/accelerometer.h"
-#include "lis3dsh_reg.h"
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -27,15 +19,6 @@ extern "C" {
 /*---------------------------------------------------------------------------------------
 *                                        TYPES
 *--------------------------------------------------------------------------------------*/
-class LIS3DSH : public Accelerometer
-{
-private:
-    stmdev_ctx_t m_sensor;
-public:
-    LIS3DSH(SPI_HandleTypeDef* spi_handle);
-    void Init(void);
-    void UpdateData(void);
-};
 
 /*---------------------------------------------------------------------------------------
 *                                   MEMORY CONSTANTS
@@ -45,8 +28,13 @@ public:
 *                                      VARIABLES
 *--------------------------------------------------------------------------------------*/
 
-#ifdef __cplusplus
+/*---------------------------------------------------------------------------------------
+*                                     PROCEDURES
+*--------------------------------------------------------------------------------------*/
+Accelerometer::Accelerometer()
+{
+    this->X = 0.0;
+    this->Y = 0.0;
+    this->Z = 0.0;
+    memset(this->raw_data, 0x00, 3 * sizeof(int16_t));
 }
-#endif
-
-#endif

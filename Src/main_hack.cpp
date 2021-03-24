@@ -14,13 +14,7 @@
 
 #include "main.h"
 #include "led.h"
-#include "i2c.h"
-
-#if defined (STM32F303xC)
-    #include "Sensors/lsm303agr.h"
-#elif defined (STM32F407xx)
-    #include "Sensors/lis3dsh.h"
-#endif
+#include "Sensors/hal.h"
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -37,18 +31,6 @@
 /*---------------------------------------------------------------------------------------
 *                                      VARIABLES
 *--------------------------------------------------------------------------------------*/
-LED led_W(LED_W_GPIO_Port, LED_W_Pin);
-LED led_N(LED_N_GPIO_Port, LED_N_Pin);
-LED led_E(LED_E_GPIO_Port, LED_E_Pin);
-LED led_S(LED_S_GPIO_Port, LED_S_Pin);
-
-#if defined (STM32F303xC)
-    I2C accel_i2c(&hi2c1);
-    LSM303AGR accel(&accel_i2c);
-#elif defined (STM32F407xx)
-    SPI accel_spi(&hspi1, ACCEL_CS_GPIO_Port, ACCEL_CS_Pin);
-    LIS3DSH accel(&accel_spi);
-#endif
 
 /*---------------------------------------------------------------------------------------
 *                                     PROCEDURES
@@ -73,8 +55,43 @@ void delay(uint32_t ms)
 *
 * Description: The main loop of the quadcopter
 *****************************************************************************/
+static int32_t i2c_write(void *handle, uint8_t reg, uint8_t *bufp, uint16_t len)
+{
+    I2C_HandleTypeDef* i2cHandle = (I2C_HandleTypeDef*)handle;
+
+    return (int32_t)HAL_I2C_Mem_Write(i2cHandle, LSM303AGR_I2C_ADD_XL | 0b1, reg, I2C_MEMADD_SIZE_8BIT, bufp, len, 1000);
+}
+
+static int32_t i2c_read(void *handle, uint8_t reg, uint8_t *bufp, uint16_t len)
+{
+    I2C_HandleTypeDef* i2cHandle = (I2C_HandleTypeDef*)handle;
+
+    return (int32_t)HAL_I2C_Mem_Read(i2cHandle, LSM303AGR_I2C_ADD_XL & ~0b1, reg, I2C_MEMADD_SIZE_8BIT, bufp, len, 1000);
+}
+#include "Sensors/lsm303agr.h"
+#include <cstring>
+float X, Y, Z;
+static int read_data(lsm303agr* a, stmdev_ctx_t* m_sensor)
+{
+    int16_t raw_data[3];
+    memset(raw_data, 0x00, 3 * sizeof(int16_t));
+    a->acceleration_raw_get(m_sensor, raw_data);
+
+    X = a->from_fs_2g_nm_to_mg(raw_data[0]);
+    Y = a->from_fs_2g_nm_to_mg(raw_data[1]);
+    Z = a->from_fs_2g_nm_to_mg(raw_data[2]);
+    return 0;
+}
+
+
 int main(void)
 {
+    stmdev_ctx_t m_sensor;
+    m_sensor.write_reg = i2c_write;
+    m_sensor.read_reg = i2c_read;
+    m_sensor.handle = (void*)&hi2c1;
+    lsm303agr accel;
+
     /* MCU Configuration--------------------------------------------------------*/
     InitHardware();
 
@@ -82,12 +99,25 @@ int main(void)
     HAL_Init();
 
     /* Initialize all configured peripherals */
-    accel.Init();
+    //accelerometer->Init();
+
+    accel.xl_data_rate_set(&m_sensor, lsm303agr::LSM303AGR_XL_ODR_200Hz);
+    accel.xl_operating_mode_set(&m_sensor, lsm303agr::LSM303AGR_NM_10bit);
+    accel.xl_full_scale_set(&m_sensor, lsm303agr::LSM303AGR_2g);
+
+    // for(uint8_t i = 1; true; i = ((i << 1) | (i >> 7)))
+    // {
+    //     accelerometer->UpdateData();
+    //     uint16_t pin = (accelerometer->raw_data[0]) << 8;
+    //     HAL_GPIO_WritePin(GPIOE, pin, GPIO_PIN_SET);
+    //     delay(1000);
+    //     HAL_GPIO_WritePin(GPIOE, pin, GPIO_PIN_RESET);
+    // }
 
     while(true)
     {
-        accel.UpdateData();
-        if (accel.Y > 0)
+        read_data(&accel, &m_sensor);
+        if (Y > 0)
         {
             led_N.On();
             led_S.Off();
@@ -97,7 +127,7 @@ int main(void)
             led_N.Off();
             led_S.On();
         }
-        if (accel.X > 0)
+        if (X > 0)
         {
             led_W.Off();
             led_E.On();
@@ -107,5 +137,6 @@ int main(void)
             led_W.On();
             led_E.Off();
         }
+        delay(1000);
     }
 }

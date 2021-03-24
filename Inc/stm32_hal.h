@@ -3,6 +3,8 @@
 *
 * Description: The actual HAL include... idk why stm thought having the device name
 *              in the name of the hal header made sense?
+*              Switching between these two micro controllers is still a pain with what
+*              needs to be regenerated, but this include makes it a tad less of a pain
 *
 * Created by Matt Olson
 ****************************************************************************************/
@@ -16,6 +18,7 @@ extern "C" {
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
+
 #if defined (STM32F303xC)
     #include "stm32f3xx.h"
 #elif defined (STM32F407xx)

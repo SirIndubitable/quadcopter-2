@@ -17,7 +17,7 @@
  ******************************************************************************
  */
 
-#include "Sensors/lsm303agr.h"
+#include "lsm303agr_reg.h"
 
 /**
   * @defgroup  LSM303AGR
@@ -46,7 +46,7 @@
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t lsm303agr::read_reg(stmdev_ctx_t *ctx, uint8_t reg,
+int32_t lsm303agr_read_reg(stmdev_ctx_t *ctx, uint8_t reg,
                            uint8_t *data,
                            uint16_t len)
 {
@@ -65,7 +65,7 @@ int32_t lsm303agr::read_reg(stmdev_ctx_t *ctx, uint8_t reg,
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t lsm303agr::write_reg(stmdev_ctx_t *ctx, uint8_t reg,
+int32_t lsm303agr_write_reg(stmdev_ctx_t *ctx, uint8_t reg,
                             uint8_t *data,
                             uint16_t len)
 {
@@ -86,82 +86,82 @@ int32_t lsm303agr::write_reg(stmdev_ctx_t *ctx, uint8_t reg,
   *
   */
 
-float_t lsm303agr::from_fs_2g_hr_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_2g_hr_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 16.0f ) * 0.98f;
 }
 
-float_t lsm303agr::from_fs_4g_hr_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_4g_hr_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 16.0f ) * 1.95f;
 }
 
-float_t lsm303agr::from_fs_8g_hr_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_8g_hr_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 16.0f ) * 3.9f;
 }
 
-float_t lsm303agr::from_fs_16g_hr_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_16g_hr_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 16.0f ) * 11.72f;
 }
 
-float_t lsm303agr::from_lsb_hr_to_celsius(int16_t lsb)
+float_t lsm303agr_from_lsb_hr_to_celsius(int16_t lsb)
 {
   return ( ( (float_t)lsb / 64.0f ) / 4.0f ) + 25.0f;
 }
 
-float_t lsm303agr::from_fs_2g_nm_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_2g_nm_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 64.0f ) * 3.9f;
 }
 
-float_t lsm303agr::from_fs_4g_nm_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_4g_nm_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 64.0f ) * 7.82f;
 }
 
-float_t lsm303agr::from_fs_8g_nm_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_8g_nm_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 64.0f ) * 15.63f;
 }
 
-float_t lsm303agr::from_fs_16g_nm_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_16g_nm_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 64.0f ) * 46.9f;
 }
 
-float_t lsm303agr::from_lsb_nm_to_celsius(int16_t lsb)
+float_t lsm303agr_from_lsb_nm_to_celsius(int16_t lsb)
 {
   return ( ( (float_t)lsb / 64.0f ) / 4.0f ) + 25.0f;
 }
 
-float_t lsm303agr::from_fs_2g_lp_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_2g_lp_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 256.0f ) * 15.63f;
 }
 
-float_t lsm303agr::from_fs_4g_lp_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_4g_lp_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 256.0f ) * 31.26f;
 }
 
-float_t lsm303agr::from_fs_8g_lp_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_8g_lp_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 256.0f ) * 62.52f;
 }
 
-float_t lsm303agr::from_fs_16g_lp_to_mg(int16_t lsb)
+float_t lsm303agr_from_fs_16g_lp_to_mg(int16_t lsb)
 {
   return ((float_t)lsb / 256.0f ) * 187.58f;
 }
 
-float_t lsm303agr::from_lsb_lp_to_celsius(int16_t lsb)
+float_t lsm303agr_from_lsb_lp_to_celsius(int16_t lsb)
 {
   return ( ( (float_t)lsb / 256.0f ) * 1.0f ) + 25.0f;
 }
 
-float_t lsm303agr::from_lsb_to_mgauss(int16_t lsb)
+float_t lsm303agr_from_lsb_to_mgauss(int16_t lsb)
 {
   return (float_t)lsb * 1.5f;
 }
@@ -186,11 +186,11 @@ float_t lsm303agr::from_lsb_to_mgauss(int16_t lsb)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::temp_status_reg_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_temp_status_reg_get(stmdev_ctx_t *ctx,
                                       uint8_t *buff)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_STATUS_REG_AUX_A, buff, 1);
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_STATUS_REG_AUX_A, buff, 1);
   return ret;
 }
 
@@ -202,11 +202,11 @@ int32_t lsm303agr::temp_status_reg_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::temp_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_temp_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_status_reg_aux_a_t status_reg_aux_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_STATUS_REG_AUX_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_STATUS_REG_AUX_A,
                            (uint8_t *)&status_reg_aux_a, 1);
   *val = status_reg_aux_a.tda;
   return ret;
@@ -220,11 +220,11 @@ int32_t lsm303agr::temp_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::temp_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_temp_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_status_reg_aux_a_t status_reg_aux_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_STATUS_REG_AUX_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_STATUS_REG_AUX_A,
                            (uint8_t *)&status_reg_aux_a, 1);
   *val = status_reg_aux_a.tor;
   return ret;
@@ -238,11 +238,11 @@ int32_t lsm303agr::temp_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::temperature_raw_get(stmdev_ctx_t *ctx, int16_t *val)
+int32_t lsm303agr_temperature_raw_get(stmdev_ctx_t *ctx, int16_t *val)
 {
   uint8_t buff[2];
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_OUT_TEMP_L_A, buff, 2);
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_OUT_TEMP_L_A, buff, 2);
   val[0] = (int16_t)buff[1];
   val[0] = (val[0] * 256) + (int16_t)buff[0];
   return ret;
@@ -256,17 +256,17 @@ int32_t lsm303agr::temperature_raw_get(stmdev_ctx_t *ctx, int16_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::temperature_meas_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_temperature_meas_set(stmdev_ctx_t *ctx,
                                        lsm303agr_temp_en_a_t val)
 {
   lsm303agr_temp_cfg_reg_a_t temp_cfg_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_TEMP_CFG_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_TEMP_CFG_REG_A,
                            (uint8_t *)&temp_cfg_reg_a, 1);
 
   if (ret == 0) {
     temp_cfg_reg_a.temp_en = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_TEMP_CFG_REG_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_TEMP_CFG_REG_A,
                               (uint8_t *)&temp_cfg_reg_a, 1);
   }
 
@@ -281,12 +281,12 @@ int32_t lsm303agr::temperature_meas_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::temperature_meas_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_temperature_meas_get(stmdev_ctx_t *ctx,
                                        lsm303agr_temp_en_a_t *val)
 {
   lsm303agr_temp_cfg_reg_a_t temp_cfg_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_TEMP_CFG_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_TEMP_CFG_REG_A,
                            (uint8_t *)&temp_cfg_reg_a, 1);
 
   switch (temp_cfg_reg_a.temp_en) {
@@ -315,7 +315,7 @@ int32_t lsm303agr::temperature_meas_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_operating_mode_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_operating_mode_set(stmdev_ctx_t *ctx,
                                         lsm303agr_op_md_a_t val)
 {
   lsm303agr_ctrl_reg1_a_t ctrl_reg1_a;
@@ -338,23 +338,23 @@ int32_t lsm303agr::xl_operating_mode_set(stmdev_ctx_t *ctx,
     hr   = 0;
   }
 
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG1_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG1_A,
                            (uint8_t *)&ctrl_reg1_a, 1);
   ctrl_reg1_a.lpen = (uint8_t)lpen;
 
   if (ret == 0) {
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG1_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG1_A,
                               (uint8_t *)&ctrl_reg1_a, 1);
   }
 
   if (ret == 0) {
-    ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+    ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                              (uint8_t *)&ctrl_reg4_a, 1);
   }
 
   if (ret == 0) {
     ctrl_reg4_a.hr = hr;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG4_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG4_A,
                               (uint8_t *)&ctrl_reg4_a, 1);
   }
 
@@ -370,17 +370,17 @@ int32_t lsm303agr::xl_operating_mode_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_operating_mode_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_operating_mode_get(stmdev_ctx_t *ctx,
                                         lsm303agr_op_md_a_t *val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   lsm303agr_ctrl_reg1_a_t ctrl_reg1_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG1_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG1_A,
                            (uint8_t *)&ctrl_reg1_a, 1);
 
   if (ret == 0) {
-    ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+    ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                              (uint8_t *)&ctrl_reg4_a, 1);
   }
 
@@ -407,17 +407,17 @@ int32_t lsm303agr::xl_operating_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_data_rate_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_data_rate_set(stmdev_ctx_t *ctx,
                                    lsm303agr_odr_a_t val)
 {
   lsm303agr_ctrl_reg1_a_t ctrl_reg1_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG1_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG1_A,
                            (uint8_t *)&ctrl_reg1_a, 1);
 
   if (ret == 0) {
     ctrl_reg1_a.odr = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG1_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG1_A,
                               (uint8_t *)&ctrl_reg1_a, 1);
   }
 
@@ -432,12 +432,12 @@ int32_t lsm303agr::xl_data_rate_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_data_rate_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_data_rate_get(stmdev_ctx_t *ctx,
                                    lsm303agr_odr_a_t *val)
 {
   lsm303agr_ctrl_reg1_a_t ctrl_reg1_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG1_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG1_A,
                            (uint8_t *)&ctrl_reg1_a, 1);
 
   switch (ctrl_reg1_a.odr) {
@@ -497,17 +497,17 @@ int32_t lsm303agr::xl_data_rate_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_high_pass_on_outputs_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_high_pass_on_outputs_set(stmdev_ctx_t *ctx,
                                               uint8_t val)
 {
   lsm303agr_ctrl_reg2_a_t ctrl_reg2_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG2_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG2_A,
                            (uint8_t *)&ctrl_reg2_a, 1);
 
   if (ret == 0) {
     ctrl_reg2_a.fds = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG2_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG2_A,
                               (uint8_t *)&ctrl_reg2_a, 1);
   }
 
@@ -523,12 +523,12 @@ int32_t lsm303agr::xl_high_pass_on_outputs_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_high_pass_on_outputs_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_high_pass_on_outputs_get(stmdev_ctx_t *ctx,
                                               uint8_t *val)
 {
   lsm303agr_ctrl_reg2_a_t ctrl_reg2_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG2_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG2_A,
                            (uint8_t *)&ctrl_reg2_a, 1);
   *val = ctrl_reg2_a.fds;
   return ret;
@@ -549,17 +549,17 @@ int32_t lsm303agr::xl_high_pass_on_outputs_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_high_pass_bandwidth_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_high_pass_bandwidth_set(stmdev_ctx_t *ctx,
                                              lsm303agr_hpcf_a_t val)
 {
   lsm303agr_ctrl_reg2_a_t ctrl_reg2_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG2_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG2_A,
                            (uint8_t *)&ctrl_reg2_a, 1);
 
   if (ret == 0) {
     ctrl_reg2_a.hpcf = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG2_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG2_A,
                               (uint8_t *)&ctrl_reg2_a, 1);
   }
 
@@ -581,12 +581,12 @@ int32_t lsm303agr::xl_high_pass_bandwidth_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_high_pass_bandwidth_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_high_pass_bandwidth_get(stmdev_ctx_t *ctx,
                                              lsm303agr_hpcf_a_t *val)
 {
   lsm303agr_ctrl_reg2_a_t ctrl_reg2_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG2_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG2_A,
                            (uint8_t *)&ctrl_reg2_a, 1);
 
   switch (ctrl_reg2_a.hpcf) {
@@ -622,17 +622,17 @@ int32_t lsm303agr::xl_high_pass_bandwidth_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_high_pass_mode_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_high_pass_mode_set(stmdev_ctx_t *ctx,
                                         lsm303agr_hpm_a_t val)
 {
   lsm303agr_ctrl_reg2_a_t ctrl_reg2_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG2_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG2_A,
                            (uint8_t *)&ctrl_reg2_a, 1);
 
   if (ret == 0) {
     ctrl_reg2_a.hpm = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG2_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG2_A,
                               (uint8_t *)&ctrl_reg2_a, 1);
   }
 
@@ -647,12 +647,12 @@ int32_t lsm303agr::xl_high_pass_mode_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_high_pass_mode_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_high_pass_mode_get(stmdev_ctx_t *ctx,
                                         lsm303agr_hpm_a_t *val)
 {
   lsm303agr_ctrl_reg2_a_t ctrl_reg2_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG2_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG2_A,
                            (uint8_t *)&ctrl_reg2_a, 1);
 
   switch (ctrl_reg2_a.hpm) {
@@ -688,17 +688,17 @@ int32_t lsm303agr::xl_high_pass_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_full_scale_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_full_scale_set(stmdev_ctx_t *ctx,
                                     lsm303agr_fs_a_t val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
 
   if (ret == 0) {
     ctrl_reg4_a.fs = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG4_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG4_A,
                               (uint8_t *)&ctrl_reg4_a, 1);
   }
 
@@ -713,12 +713,12 @@ int32_t lsm303agr::xl_full_scale_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_full_scale_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_full_scale_get(stmdev_ctx_t *ctx,
                                     lsm303agr_fs_a_t *val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
 
   switch (ctrl_reg4_a.fs) {
@@ -754,17 +754,17 @@ int32_t lsm303agr::xl_full_scale_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_block_data_update_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_block_data_update_set(stmdev_ctx_t *ctx,
                                            uint8_t val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
 
   if (ret == 0) {
     ctrl_reg4_a.bdu = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG4_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG4_A,
                               (uint8_t *)&ctrl_reg4_a, 1);
   }
 
@@ -779,12 +779,12 @@ int32_t lsm303agr::xl_block_data_update_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_block_data_update_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_block_data_update_get(stmdev_ctx_t *ctx,
                                            uint8_t *val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
   *val = ctrl_reg4_a.bdu;
   return ret;
@@ -799,11 +799,11 @@ int32_t lsm303agr::xl_block_data_update_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_filter_reference_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_filter_reference_set(stmdev_ctx_t *ctx,
                                           uint8_t *buff)
 {
   int32_t ret;
-  ret = this->write_reg(ctx, LSM303AGR_REFERENCE_A, buff, 1);
+  ret = lsm303agr_write_reg(ctx, LSM303AGR_REFERENCE_A, buff, 1);
   return ret;
 }
 
@@ -816,11 +816,11 @@ int32_t lsm303agr::xl_filter_reference_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_filter_reference_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_filter_reference_get(stmdev_ctx_t *ctx,
                                           uint8_t *buff)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_REFERENCE_A, buff, 1);
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_REFERENCE_A, buff, 1);
   return ret;
 }
 
@@ -832,11 +832,11 @@ int32_t lsm303agr::xl_filter_reference_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_xl_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_status_reg_a_t status_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_STATUS_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_STATUS_REG_A,
                            (uint8_t *)&status_reg_a, 1);
   *val = status_reg_a.zyxda;
   return ret;
@@ -850,11 +850,11 @@ int32_t lsm303agr::xl_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_xl_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_status_reg_a_t status_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_STATUS_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_STATUS_REG_A,
                            (uint8_t *)&status_reg_a, 1);
   *val = status_reg_a.zyxor;
   return ret;
@@ -868,12 +868,12 @@ int32_t lsm303agr::xl_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::acceleration_raw_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_acceleration_raw_get(stmdev_ctx_t *ctx,
                                        int16_t *val)
 {
   uint8_t buff[6];
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_OUT_X_L_A, buff, 6);
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_OUT_X_L_A, buff, 6);
   val[0] = (int16_t)buff[1];
   val[0] = (val[0] * 256) + (int16_t)buff[0];
   val[1] = (int16_t)buff[3];
@@ -898,7 +898,7 @@ int32_t lsm303agr::acceleration_raw_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_user_offset_set(stmdev_ctx_t *ctx, int16_t *val)
+int32_t lsm303agr_mag_user_offset_set(stmdev_ctx_t *ctx, int16_t *val)
 {
   uint8_t buff[6];
   int32_t ret;
@@ -908,7 +908,7 @@ int32_t lsm303agr::mag_user_offset_set(stmdev_ctx_t *ctx, int16_t *val)
   buff[2] = (uint8_t) ((uint16_t)val[1] - (buff[3] * 256U));
   buff[5] = (uint8_t) ((uint16_t)val[2] / 256U);
   buff[4] = (uint8_t) ((uint16_t)val[2] - (buff[5] * 256U));
-  ret = this->write_reg(ctx, LSM303AGR_OFFSET_X_REG_L_M, buff, 6);
+  ret = lsm303agr_write_reg(ctx, LSM303AGR_OFFSET_X_REG_L_M, buff, 6);
   return ret;
 }
 
@@ -927,11 +927,11 @@ int32_t lsm303agr::mag_user_offset_set(stmdev_ctx_t *ctx, int16_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_user_offset_get(stmdev_ctx_t *ctx, int16_t *val)
+int32_t lsm303agr_mag_user_offset_get(stmdev_ctx_t *ctx, int16_t *val)
 {
   uint8_t buff[6];
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_OFFSET_X_REG_L_M, buff, 6);
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_OFFSET_X_REG_L_M, buff, 6);
   val[0] = (int16_t)buff[1];
   val[0] = (val[0] * 256) + (int16_t)buff[0];
   val[1] = (int16_t)buff[3];
@@ -949,17 +949,17 @@ int32_t lsm303agr::mag_user_offset_get(stmdev_ctx_t *ctx, int16_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_operating_mode_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_operating_mode_set(stmdev_ctx_t *ctx,
                                          lsm303agr_md_m_t val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
 
   if (ret == 0) {
     cfg_reg_a_m.md = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_A_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_A_M,
                               (uint8_t *)&cfg_reg_a_m, 1);
   }
 
@@ -974,12 +974,12 @@ int32_t lsm303agr::mag_operating_mode_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_operating_mode_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_operating_mode_get(stmdev_ctx_t *ctx,
                                          lsm303agr_md_m_t *val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
 
   switch (cfg_reg_a_m.md) {
@@ -1011,17 +1011,17 @@ int32_t lsm303agr::mag_operating_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_data_rate_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_data_rate_set(stmdev_ctx_t *ctx,
                                     lsm303agr_mg_odr_m_t val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
 
   if (ret == 0) {
     cfg_reg_a_m.odr = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_A_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_A_M,
                               (uint8_t *)&cfg_reg_a_m, 1);
   }
 
@@ -1036,12 +1036,12 @@ int32_t lsm303agr::mag_data_rate_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_data_rate_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_data_rate_get(stmdev_ctx_t *ctx,
                                     lsm303agr_mg_odr_m_t *val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
 
   switch (cfg_reg_a_m.odr) {
@@ -1077,17 +1077,17 @@ int32_t lsm303agr::mag_data_rate_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_power_mode_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_power_mode_set(stmdev_ctx_t *ctx,
                                      lsm303agr_lp_m_t val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
 
   if (ret == 0) {
     cfg_reg_a_m.lp = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_A_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_A_M,
                               (uint8_t *)&cfg_reg_a_m, 1);
   }
 
@@ -1102,12 +1102,12 @@ int32_t lsm303agr::mag_power_mode_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_power_mode_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_power_mode_get(stmdev_ctx_t *ctx,
                                      lsm303agr_lp_m_t *val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
 
   switch (cfg_reg_a_m.lp) {
@@ -1135,17 +1135,17 @@ int32_t lsm303agr::mag_power_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_offset_temp_comp_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_offset_temp_comp_set(stmdev_ctx_t *ctx,
                                            uint8_t val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
 
   if (ret == 0) {
     cfg_reg_a_m.comp_temp_en = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_A_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_A_M,
                               (uint8_t *)&cfg_reg_a_m, 1);
   }
 
@@ -1160,12 +1160,12 @@ int32_t lsm303agr::mag_offset_temp_comp_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_offset_temp_comp_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_offset_temp_comp_get(stmdev_ctx_t *ctx,
                                            uint8_t *val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
   *val = cfg_reg_a_m.comp_temp_en;
   return ret;
@@ -1179,17 +1179,17 @@ int32_t lsm303agr::mag_offset_temp_comp_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_low_pass_bandwidth_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_low_pass_bandwidth_set(stmdev_ctx_t *ctx,
                                              lsm303agr_lpf_m_t val)
 {
   lsm303agr_cfg_reg_b_m_t cfg_reg_b_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_B_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_B_M,
                            (uint8_t *)&cfg_reg_b_m, 1);
 
   if (ret == 0) {
     cfg_reg_b_m.lpf = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_B_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_B_M,
                               (uint8_t *)&cfg_reg_b_m, 1);
   }
 
@@ -1204,12 +1204,12 @@ int32_t lsm303agr::mag_low_pass_bandwidth_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_low_pass_bandwidth_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_low_pass_bandwidth_get(stmdev_ctx_t *ctx,
                                              lsm303agr_lpf_m_t *val)
 {
   lsm303agr_cfg_reg_b_m_t cfg_reg_b_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_B_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_B_M,
                            (uint8_t *)&cfg_reg_b_m, 1);
 
   switch (cfg_reg_b_m.lpf) {
@@ -1237,17 +1237,17 @@ int32_t lsm303agr::mag_low_pass_bandwidth_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_set_rst_mode_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_set_rst_mode_set(stmdev_ctx_t *ctx,
                                        lsm303agr_set_rst_m_t val)
 {
   lsm303agr_cfg_reg_b_m_t cfg_reg_b_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_B_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_B_M,
                            (uint8_t *)&cfg_reg_b_m, 1);
 
   if (ret == 0) {
     cfg_reg_b_m.set_rst = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_B_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_B_M,
                               (uint8_t *)&cfg_reg_b_m, 1);
   }
 
@@ -1262,12 +1262,12 @@ int32_t lsm303agr::mag_set_rst_mode_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_set_rst_mode_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_set_rst_mode_get(stmdev_ctx_t *ctx,
                                        lsm303agr_set_rst_m_t *val)
 {
   lsm303agr_cfg_reg_b_m_t cfg_reg_b_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_B_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_B_M,
                            (uint8_t *)&cfg_reg_b_m, 1);
 
   switch (cfg_reg_b_m.set_rst) {
@@ -1305,17 +1305,17 @@ int32_t lsm303agr::mag_set_rst_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_set_rst_sensor_single_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_set_rst_sensor_single_set(stmdev_ctx_t *ctx,
                                                 uint8_t val)
 {
   lsm303agr_cfg_reg_b_m_t cfg_reg_b_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_B_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_B_M,
                            (uint8_t *)&cfg_reg_b_m, 1);
 
   if (ret == 0) {
     cfg_reg_b_m.off_canc_one_shot = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_B_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_B_M,
                               (uint8_t *)&cfg_reg_b_m, 1);
   }
 
@@ -1337,12 +1337,12 @@ int32_t lsm303agr::mag_set_rst_sensor_single_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_set_rst_sensor_single_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_set_rst_sensor_single_get(stmdev_ctx_t *ctx,
                                                 uint8_t *val)
 {
   lsm303agr_cfg_reg_b_m_t cfg_reg_b_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_B_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_B_M,
                            (uint8_t *)&cfg_reg_b_m, 1);
   *val = cfg_reg_b_m.off_canc_one_shot;
   return ret;
@@ -1356,17 +1356,17 @@ int32_t lsm303agr::mag_set_rst_sensor_single_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_block_data_update_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_block_data_update_set(stmdev_ctx_t *ctx,
                                             uint8_t val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
 
   if (ret == 0) {
     cfg_reg_c_m.bdu = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_C_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_C_M,
                               (uint8_t *)&cfg_reg_c_m, 1);
   }
 
@@ -1381,12 +1381,12 @@ int32_t lsm303agr::mag_block_data_update_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_block_data_update_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_block_data_update_get(stmdev_ctx_t *ctx,
                                             uint8_t *val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
   *val = cfg_reg_c_m.bdu;
   return ret;
@@ -1400,11 +1400,11 @@ int32_t lsm303agr::mag_block_data_update_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_mag_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_status_reg_m_t status_reg_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_STATUS_REG_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_STATUS_REG_M,
                            (uint8_t *)&status_reg_m, 1);
   *val = status_reg_m.zyxda;
   return ret;
@@ -1418,11 +1418,11 @@ int32_t lsm303agr::mag_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_mag_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_status_reg_m_t status_reg_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_STATUS_REG_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_STATUS_REG_M,
                            (uint8_t *)&status_reg_m, 1);
   *val = status_reg_m.zyxor;
   return ret;
@@ -1436,11 +1436,11 @@ int32_t lsm303agr::mag_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::magnetic_raw_get(stmdev_ctx_t *ctx, int16_t *val)
+int32_t lsm303agr_magnetic_raw_get(stmdev_ctx_t *ctx, int16_t *val)
 {
   uint8_t buff[6];
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_OUTX_L_REG_M, buff, 6);
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_OUTX_L_REG_M, buff, 6);
   val[0] = (int16_t)buff[1];
   val[0] = (val[0] * 256) + (int16_t)buff[0];
   val[1] = (int16_t)buff[3];
@@ -1470,10 +1470,10 @@ int32_t lsm303agr::magnetic_raw_get(stmdev_ctx_t *ctx, int16_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_device_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
+int32_t lsm303agr_xl_device_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_WHO_AM_I_A, buff, 1);
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_WHO_AM_I_A, buff, 1);
   return ret;
 }
 
@@ -1485,17 +1485,17 @@ int32_t lsm303agr::xl_device_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_self_test_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_self_test_set(stmdev_ctx_t *ctx,
                                    lsm303agr_st_a_t val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
 
   if (ret == 0) {
     ctrl_reg4_a.st = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG4_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG4_A,
                               (uint8_t *)&ctrl_reg4_a, 1);
   }
 
@@ -1510,12 +1510,12 @@ int32_t lsm303agr::xl_self_test_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_self_test_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_self_test_get(stmdev_ctx_t *ctx,
                                    lsm303agr_st_a_t *val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
 
   switch (ctrl_reg4_a.st) {
@@ -1547,17 +1547,17 @@ int32_t lsm303agr::xl_self_test_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_data_format_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_data_format_set(stmdev_ctx_t *ctx,
                                      lsm303agr_ble_a_t val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
 
   if (ret == 0) {
     ctrl_reg4_a.ble = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG4_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG4_A,
                               (uint8_t *)&ctrl_reg4_a, 1);
   }
 
@@ -1572,12 +1572,12 @@ int32_t lsm303agr::xl_data_format_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_data_format_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_data_format_get(stmdev_ctx_t *ctx,
                                      lsm303agr_ble_a_t *val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
 
   switch (ctrl_reg4_a.ble) {
@@ -1605,16 +1605,16 @@ int32_t lsm303agr::xl_data_format_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_boot_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_xl_boot_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
 
   if (ret == 0) {
     ctrl_reg5_a.boot = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG5_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG5_A,
                               (uint8_t *)&ctrl_reg5_a, 1);
   }
 
@@ -1629,11 +1629,11 @@ int32_t lsm303agr::xl_boot_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_boot_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_xl_boot_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
   *val = ctrl_reg5_a.boot;
   return ret;
@@ -1647,11 +1647,11 @@ int32_t lsm303agr::xl_boot_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_status_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_status_get(stmdev_ctx_t *ctx,
                                 lsm303agr_status_reg_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_STATUS_REG_A, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_STATUS_REG_A, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -1664,10 +1664,10 @@ int32_t lsm303agr::xl_status_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_device_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
+int32_t lsm303agr_mag_device_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_WHO_AM_I_M, buff, 1);
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_WHO_AM_I_M, buff, 1);
   return ret;
 }
 
@@ -1679,16 +1679,16 @@ int32_t lsm303agr::mag_device_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_reset_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_mag_reset_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
 
   if (ret == 0) {
     cfg_reg_a_m.soft_rst = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_A_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_A_M,
                               (uint8_t *)&cfg_reg_a_m, 1);
   }
 
@@ -1703,11 +1703,11 @@ int32_t lsm303agr::mag_reset_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_reset_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_mag_reset_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
   *val = cfg_reg_a_m.soft_rst;
   return ret;
@@ -1721,16 +1721,16 @@ int32_t lsm303agr::mag_reset_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_boot_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_mag_boot_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
 
   if (ret == 0) {
     cfg_reg_a_m.reboot = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_A_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_A_M,
                               (uint8_t *)&cfg_reg_a_m, 1);
   }
 
@@ -1745,11 +1745,11 @@ int32_t lsm303agr::mag_boot_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_boot_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_mag_boot_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_cfg_reg_a_m_t cfg_reg_a_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_A_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_A_M,
                            (uint8_t *)&cfg_reg_a_m, 1);
   *val = cfg_reg_a_m.reboot;
   return ret;
@@ -1763,16 +1763,16 @@ int32_t lsm303agr::mag_boot_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_self_test_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_mag_self_test_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
 
   if (ret == 0) {
     cfg_reg_c_m.self_test = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_C_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_C_M,
                               (uint8_t *)&cfg_reg_c_m, 1);
   }
 
@@ -1787,11 +1787,11 @@ int32_t lsm303agr::mag_self_test_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_self_test_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_mag_self_test_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
   *val = cfg_reg_c_m.self_test;
   return ret;
@@ -1805,17 +1805,17 @@ int32_t lsm303agr::mag_self_test_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_data_format_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_data_format_set(stmdev_ctx_t *ctx,
                                       lsm303agr_ble_m_t val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
 
   if (ret == 0) {
     cfg_reg_c_m.ble = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_C_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_C_M,
                               (uint8_t *)&cfg_reg_c_m, 1);
   }
 
@@ -1830,12 +1830,12 @@ int32_t lsm303agr::mag_data_format_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_data_format_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_data_format_get(stmdev_ctx_t *ctx,
                                       lsm303agr_ble_m_t *val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
 
   switch (cfg_reg_c_m.ble) {
@@ -1863,11 +1863,11 @@ int32_t lsm303agr::mag_data_format_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_status_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_status_get(stmdev_ctx_t *ctx,
                                  lsm303agr_status_reg_m_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_STATUS_REG_M, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_STATUS_REG_M, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -1893,11 +1893,11 @@ int32_t lsm303agr::mag_status_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1_gen_conf_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1_gen_conf_set(stmdev_ctx_t *ctx,
                                        lsm303agr_int1_cfg_a_t *val)
 {
   int32_t ret;
-  ret = this->write_reg(ctx, LSM303AGR_INT1_CFG_A, (uint8_t *) val,
+  ret = lsm303agr_write_reg(ctx, LSM303AGR_INT1_CFG_A, (uint8_t *) val,
                             1);
   return ret;
 }
@@ -1910,11 +1910,11 @@ int32_t lsm303agr::xl_int1_gen_conf_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1_gen_conf_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1_gen_conf_get(stmdev_ctx_t *ctx,
                                        lsm303agr_int1_cfg_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT1_CFG_A, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT1_CFG_A, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -1927,11 +1927,11 @@ int32_t lsm303agr::xl_int1_gen_conf_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1_gen_source_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1_gen_source_get(stmdev_ctx_t *ctx,
                                          lsm303agr_int1_src_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT1_SRC_A, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT1_SRC_A, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -1946,17 +1946,17 @@ int32_t lsm303agr::xl_int1_gen_source_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1_gen_threshold_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1_gen_threshold_set(stmdev_ctx_t *ctx,
                                             uint8_t val)
 {
   lsm303agr_int1_ths_a_t int1_ths_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT1_THS_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT1_THS_A,
                            (uint8_t *)&int1_ths_a, 1);
 
   if (ret == 0) {
     int1_ths_a.ths = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_INT1_THS_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_INT1_THS_A,
                               (uint8_t *)&int1_ths_a, 1);
   }
 
@@ -1973,12 +1973,12 @@ int32_t lsm303agr::xl_int1_gen_threshold_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1_gen_threshold_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1_gen_threshold_get(stmdev_ctx_t *ctx,
                                             uint8_t *val)
 {
   lsm303agr_int1_ths_a_t int1_ths_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT1_THS_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT1_THS_A,
                            (uint8_t *)&int1_ths_a, 1);
   *val = int1_ths_a.ths;
   return ret;
@@ -1993,17 +1993,17 @@ int32_t lsm303agr::xl_int1_gen_threshold_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1_gen_duration_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1_gen_duration_set(stmdev_ctx_t *ctx,
                                            uint8_t val)
 {
   lsm303agr_int1_duration_a_t int1_duration_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT1_DURATION_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT1_DURATION_A,
                            (uint8_t *)&int1_duration_a, 1);
 
   if (ret == 0) {
     int1_duration_a.d = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_INT1_DURATION_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_INT1_DURATION_A,
                               (uint8_t *)&int1_duration_a, 1);
   }
 
@@ -2019,12 +2019,12 @@ int32_t lsm303agr::xl_int1_gen_duration_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1_gen_duration_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1_gen_duration_get(stmdev_ctx_t *ctx,
                                            uint8_t *val)
 {
   lsm303agr_int1_duration_a_t int1_duration_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT1_DURATION_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT1_DURATION_A,
                            (uint8_t *)&int1_duration_a, 1);
   *val = int1_duration_a.d;
   return ret;
@@ -2051,11 +2051,11 @@ int32_t lsm303agr::xl_int1_gen_duration_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2_gen_conf_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2_gen_conf_set(stmdev_ctx_t *ctx,
                                        lsm303agr_int2_cfg_a_t *val)
 {
   int32_t ret;
-  ret = this->write_reg(ctx, LSM303AGR_INT2_CFG_A, (uint8_t *) val,
+  ret = lsm303agr_write_reg(ctx, LSM303AGR_INT2_CFG_A, (uint8_t *) val,
                             1);
   return ret;
 }
@@ -2068,11 +2068,11 @@ int32_t lsm303agr::xl_int2_gen_conf_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2_gen_conf_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2_gen_conf_get(stmdev_ctx_t *ctx,
                                        lsm303agr_int2_cfg_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT2_CFG_A, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT2_CFG_A, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -2085,11 +2085,11 @@ int32_t lsm303agr::xl_int2_gen_conf_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2_gen_source_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2_gen_source_get(stmdev_ctx_t *ctx,
                                          lsm303agr_int2_src_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT2_SRC_A, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT2_SRC_A, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -2104,17 +2104,17 @@ int32_t lsm303agr::xl_int2_gen_source_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2_gen_threshold_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2_gen_threshold_set(stmdev_ctx_t *ctx,
                                             uint8_t val)
 {
   lsm303agr_int2_ths_a_t int2_ths_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT2_THS_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT2_THS_A,
                            (uint8_t *)&int2_ths_a, 1);
 
   if (ret == 0) {
     int2_ths_a.ths = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_INT2_THS_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_INT2_THS_A,
                               (uint8_t *)&int2_ths_a, 1);
   }
 
@@ -2131,12 +2131,12 @@ int32_t lsm303agr::xl_int2_gen_threshold_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2_gen_threshold_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2_gen_threshold_get(stmdev_ctx_t *ctx,
                                             uint8_t *val)
 {
   lsm303agr_int2_ths_a_t int2_ths_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT2_THS_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT2_THS_A,
                            (uint8_t *)&int2_ths_a, 1);
   *val = int2_ths_a.ths;
   return ret;
@@ -2151,17 +2151,17 @@ int32_t lsm303agr::xl_int2_gen_threshold_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2_gen_duration_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2_gen_duration_set(stmdev_ctx_t *ctx,
                                            uint8_t val)
 {
   lsm303agr_int2_duration_a_t int2_duration_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT2_DURATION_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT2_DURATION_A,
                            (uint8_t *)&int2_duration_a, 1);
 
   if (ret == 0) {
     int2_duration_a.d = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_INT2_DURATION_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_INT2_DURATION_A,
                               (uint8_t *)&int2_duration_a, 1);
   }
 
@@ -2177,12 +2177,12 @@ int32_t lsm303agr::xl_int2_gen_duration_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2_gen_duration_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2_gen_duration_get(stmdev_ctx_t *ctx,
                                            uint8_t *val)
 {
   lsm303agr_int2_duration_a_t int2_duration_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT2_DURATION_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT2_DURATION_A,
                            (uint8_t *)&int2_duration_a, 1);
   *val = int2_duration_a.d;
   return ret;
@@ -2209,17 +2209,17 @@ int32_t lsm303agr::xl_int2_gen_duration_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_high_pass_int_conf_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_high_pass_int_conf_set(stmdev_ctx_t *ctx,
                                             lsm303agr_hp_a_t val)
 {
   lsm303agr_ctrl_reg2_a_t ctrl_reg2_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG2_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG2_A,
                            (uint8_t *)&ctrl_reg2_a, 1);
 
   if (ret == 0) {
     ctrl_reg2_a.hp = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG2_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG2_A,
                               (uint8_t *)&ctrl_reg2_a, 1);
   }
 
@@ -2234,12 +2234,12 @@ int32_t lsm303agr::xl_high_pass_int_conf_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_high_pass_int_conf_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_high_pass_int_conf_get(stmdev_ctx_t *ctx,
                                             lsm303agr_hp_a_t *val)
 {
   lsm303agr_ctrl_reg2_a_t ctrl_reg2_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG2_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG2_A,
                            (uint8_t *)&ctrl_reg2_a, 1);
 
   switch (ctrl_reg2_a.hp) {
@@ -2291,11 +2291,11 @@ int32_t lsm303agr::xl_high_pass_int_conf_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_pin_int1_config_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_pin_int1_config_set(stmdev_ctx_t *ctx,
                                          lsm303agr_ctrl_reg3_a_t *val)
 {
   int32_t ret;
-  ret = this->write_reg(ctx, LSM303AGR_CTRL_REG3_A, (uint8_t *) val,
+  ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG3_A, (uint8_t *) val,
                             1);
   return ret;
 }
@@ -2308,11 +2308,11 @@ int32_t lsm303agr::xl_pin_int1_config_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_pin_int1_config_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_pin_int1_config_get(stmdev_ctx_t *ctx,
                                          lsm303agr_ctrl_reg3_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG3_A, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG3_A, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -2326,17 +2326,17 @@ int32_t lsm303agr::xl_pin_int1_config_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2_pin_detect_4d_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2_pin_detect_4d_set(stmdev_ctx_t *ctx,
                                             uint8_t val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
 
   if (ret == 0) {
     ctrl_reg5_a.d4d_int2 = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG5_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG5_A,
                               (uint8_t *)&ctrl_reg5_a, 1);
   }
 
@@ -2352,12 +2352,12 @@ int32_t lsm303agr::xl_int2_pin_detect_4d_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2_pin_detect_4d_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2_pin_detect_4d_get(stmdev_ctx_t *ctx,
                                             uint8_t *val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
   *val = ctrl_reg5_a.d4d_int2;
   return ret;
@@ -2373,17 +2373,17 @@ int32_t lsm303agr::xl_int2_pin_detect_4d_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2pin_notification_mode_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2pin_notification_mode_set(stmdev_ctx_t *ctx,
                                                    lsm303agr_lir_int2_a_t val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
 
   if (ret == 0) {
     ctrl_reg5_a.lir_int2 = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG5_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG5_A,
                               (uint8_t *)&ctrl_reg5_a, 1);
   }
 
@@ -2400,12 +2400,12 @@ int32_t lsm303agr::xl_int2pin_notification_mode_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int2pin_notification_mode_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int2pin_notification_mode_get(stmdev_ctx_t *ctx,
                                                    lsm303agr_lir_int2_a_t *val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
 
   switch (ctrl_reg5_a.lir_int2) {
@@ -2434,17 +2434,17 @@ int32_t lsm303agr::xl_int2pin_notification_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1_pin_detect_4d_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1_pin_detect_4d_set(stmdev_ctx_t *ctx,
                                             uint8_t val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
 
   if (ret == 0) {
     ctrl_reg5_a.d4d_int1 = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG5_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG5_A,
                               (uint8_t *)&ctrl_reg5_a, 1);
   }
 
@@ -2460,12 +2460,12 @@ int32_t lsm303agr::xl_int1_pin_detect_4d_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1_pin_detect_4d_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1_pin_detect_4d_get(stmdev_ctx_t *ctx,
                                             uint8_t *val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
   *val = ctrl_reg5_a.d4d_int1;
   return ret;
@@ -2481,17 +2481,17 @@ int32_t lsm303agr::xl_int1_pin_detect_4d_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1pin_notification_mode_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1pin_notification_mode_set(stmdev_ctx_t *ctx,
                                                    lsm303agr_lir_int1_a_t val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
 
   if (ret == 0) {
     ctrl_reg5_a.lir_int1 = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG5_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG5_A,
                               (uint8_t *)&ctrl_reg5_a, 1);
   }
 
@@ -2508,12 +2508,12 @@ int32_t lsm303agr::xl_int1pin_notification_mode_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_int1pin_notification_mode_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_int1pin_notification_mode_get(stmdev_ctx_t *ctx,
                                                    lsm303agr_lir_int1_a_t *val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
 
   switch (ctrl_reg5_a.lir_int1) {
@@ -2541,11 +2541,11 @@ int32_t lsm303agr::xl_int1pin_notification_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_pin_int2_config_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_pin_int2_config_set(stmdev_ctx_t *ctx,
                                          lsm303agr_ctrl_reg6_a_t *val)
 {
   int32_t ret;
-  ret = this->write_reg(ctx, LSM303AGR_CTRL_REG6_A, (uint8_t *) val,
+  ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG6_A, (uint8_t *) val,
                             1);
   return ret;
 }
@@ -2558,11 +2558,11 @@ int32_t lsm303agr::xl_pin_int2_config_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_pin_int2_config_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_pin_int2_config_get(stmdev_ctx_t *ctx,
                                          lsm303agr_ctrl_reg6_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG6_A, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG6_A, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -2590,17 +2590,17 @@ int32_t lsm303agr::xl_pin_int2_config_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_offset_int_conf_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_offset_int_conf_set(stmdev_ctx_t *ctx,
                                           lsm303agr_int_on_dataoff_m_t val)
 {
   lsm303agr_cfg_reg_b_m_t cfg_reg_b_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_B_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_B_M,
                            (uint8_t *)&cfg_reg_b_m, 1);
 
   if (ret == 0) {
     cfg_reg_b_m.int_on_dataoff = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_B_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_B_M,
                               (uint8_t *)&cfg_reg_b_m, 1);
   }
 
@@ -2617,12 +2617,12 @@ int32_t lsm303agr::mag_offset_int_conf_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_offset_int_conf_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_offset_int_conf_get(stmdev_ctx_t *ctx,
                                           lsm303agr_int_on_dataoff_m_t *val)
 {
   lsm303agr_cfg_reg_b_m_t cfg_reg_b_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_B_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_B_M,
                            (uint8_t *)&cfg_reg_b_m, 1);
 
   switch (cfg_reg_b_m.int_on_dataoff) {
@@ -2650,16 +2650,16 @@ int32_t lsm303agr::mag_offset_int_conf_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_drdy_on_pin_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_mag_drdy_on_pin_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
 
   if (ret == 0) {
     cfg_reg_c_m.int_mag = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_C_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_C_M,
                               (uint8_t *)&cfg_reg_c_m, 1);
   }
 
@@ -2674,11 +2674,11 @@ int32_t lsm303agr::mag_drdy_on_pin_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_drdy_on_pin_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_mag_drdy_on_pin_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
   *val = cfg_reg_c_m.int_mag;
   return ret;
@@ -2692,16 +2692,16 @@ int32_t lsm303agr::mag_drdy_on_pin_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_int_on_pin_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_mag_int_on_pin_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
 
   if (ret == 0) {
     cfg_reg_c_m.int_mag_pin = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_C_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_C_M,
                               (uint8_t *)&cfg_reg_c_m, 1);
   }
 
@@ -2716,11 +2716,11 @@ int32_t lsm303agr::mag_int_on_pin_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_int_on_pin_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_mag_int_on_pin_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
   *val = cfg_reg_c_m.int_mag_pin;
   return ret;
@@ -2734,11 +2734,11 @@ int32_t lsm303agr::mag_int_on_pin_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_int_gen_conf_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_int_gen_conf_set(stmdev_ctx_t *ctx,
                                        lsm303agr_int_crtl_reg_m_t *val)
 {
   int32_t ret;
-  ret = this->write_reg(ctx, LSM303AGR_INT_CRTL_REG_M,
+  ret = lsm303agr_write_reg(ctx, LSM303AGR_INT_CRTL_REG_M,
                             (uint8_t *) val, 1);
   return ret;
 }
@@ -2751,11 +2751,11 @@ int32_t lsm303agr::mag_int_gen_conf_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_int_gen_conf_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_int_gen_conf_get(stmdev_ctx_t *ctx,
                                        lsm303agr_int_crtl_reg_m_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT_CRTL_REG_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT_CRTL_REG_M,
                            (uint8_t *) val, 1);
   return ret;
 }
@@ -2768,11 +2768,11 @@ int32_t lsm303agr::mag_int_gen_conf_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_int_gen_source_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_int_gen_source_get(stmdev_ctx_t *ctx,
                                          lsm303agr_int_source_reg_m_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT_SOURCE_REG_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT_SOURCE_REG_M,
                            (uint8_t *) val, 1);
   return ret;
 }
@@ -2788,14 +2788,14 @@ int32_t lsm303agr::mag_int_gen_source_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_int_gen_treshold_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_int_gen_treshold_set(stmdev_ctx_t *ctx,
                                            int16_t val)
 {
   uint8_t buff[6];
   int32_t ret;
   buff[1] = (uint8_t) ((uint16_t)val / 256U);
   buff[0] = (uint8_t) ((uint16_t)val - (buff[1] * 256U));
-  ret = this->write_reg(ctx, LSM303AGR_INT_THS_L_REG_M, buff, 2);
+  ret = lsm303agr_write_reg(ctx, LSM303AGR_INT_THS_L_REG_M, buff, 2);
   return ret;
 }
 
@@ -2810,12 +2810,12 @@ int32_t lsm303agr::mag_int_gen_treshold_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_int_gen_treshold_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_int_gen_treshold_get(stmdev_ctx_t *ctx,
                                            int16_t *val)
 {
   uint8_t buff[2];
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_INT_THS_L_REG_M, buff, 2);
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_INT_THS_L_REG_M, buff, 2);
   val[0] = (int16_t)buff[1];
   val[0] = (val[0] * 256) + (int16_t)buff[0];
   return ret;
@@ -2842,16 +2842,16 @@ int32_t lsm303agr::mag_int_gen_treshold_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_xl_fifo_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
 
   if (ret == 0) {
     ctrl_reg5_a.fifo_en = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG5_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG5_A,
                               (uint8_t *)&ctrl_reg5_a, 1);
   }
 
@@ -2866,11 +2866,11 @@ int32_t lsm303agr::xl_fifo_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_xl_fifo_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_ctrl_reg5_a_t ctrl_reg5_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG5_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG5_A,
                            (uint8_t *)&ctrl_reg5_a, 1);
   *val = ctrl_reg5_a.fifo_en;
   return ret;
@@ -2884,17 +2884,17 @@ int32_t lsm303agr::xl_fifo_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_watermark_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_watermark_set(stmdev_ctx_t *ctx,
                                         uint8_t val)
 {
   lsm303agr_fifo_ctrl_reg_a_t fifo_ctrl_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
                            (uint8_t *)&fifo_ctrl_reg_a, 1);
 
   if (ret == 0) {
     fifo_ctrl_reg_a.fth = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
                               (uint8_t *)&fifo_ctrl_reg_a, 1);
   }
 
@@ -2909,12 +2909,12 @@ int32_t lsm303agr::xl_fifo_watermark_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_watermark_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_watermark_get(stmdev_ctx_t *ctx,
                                         uint8_t *val)
 {
   lsm303agr_fifo_ctrl_reg_a_t fifo_ctrl_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
                            (uint8_t *)&fifo_ctrl_reg_a, 1);
   *val = fifo_ctrl_reg_a.fth;
   return ret;
@@ -2928,17 +2928,17 @@ int32_t lsm303agr::xl_fifo_watermark_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_trigger_event_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_trigger_event_set(stmdev_ctx_t *ctx,
                                             lsm303agr_tr_a_t val)
 {
   lsm303agr_fifo_ctrl_reg_a_t fifo_ctrl_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
                            (uint8_t *)&fifo_ctrl_reg_a, 1);
 
   if (ret == 0) {
     fifo_ctrl_reg_a.tr = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
                               (uint8_t *)&fifo_ctrl_reg_a, 1);
   }
 
@@ -2953,12 +2953,12 @@ int32_t lsm303agr::xl_fifo_trigger_event_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_trigger_event_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_trigger_event_get(stmdev_ctx_t *ctx,
                                             lsm303agr_tr_a_t *val)
 {
   lsm303agr_fifo_ctrl_reg_a_t fifo_ctrl_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
                            (uint8_t *)&fifo_ctrl_reg_a, 1);
 
   switch (fifo_ctrl_reg_a.tr) {
@@ -2986,17 +2986,17 @@ int32_t lsm303agr::xl_fifo_trigger_event_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_mode_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_mode_set(stmdev_ctx_t *ctx,
                                    lsm303agr_fm_a_t val)
 {
   lsm303agr_fifo_ctrl_reg_a_t fifo_ctrl_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
                            (uint8_t *)&fifo_ctrl_reg_a, 1);
 
   if (ret == 0) {
     fifo_ctrl_reg_a.fm = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
                               (uint8_t *)&fifo_ctrl_reg_a, 1);
   }
 
@@ -3011,12 +3011,12 @@ int32_t lsm303agr::xl_fifo_mode_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_mode_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_mode_get(stmdev_ctx_t *ctx,
                                    lsm303agr_fm_a_t *val)
 {
   lsm303agr_fifo_ctrl_reg_a_t fifo_ctrl_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_CTRL_REG_A,
                            (uint8_t *)&fifo_ctrl_reg_a, 1);
 
   switch (fifo_ctrl_reg_a.fm) {
@@ -3052,11 +3052,11 @@ int32_t lsm303agr::xl_fifo_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_status_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_status_get(stmdev_ctx_t *ctx,
                                      lsm303agr_fifo_src_reg_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
                            (uint8_t *) val, 1);
   return ret;
 }
@@ -3069,12 +3069,12 @@ int32_t lsm303agr::xl_fifo_status_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_data_level_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_data_level_get(stmdev_ctx_t *ctx,
                                          uint8_t *val)
 {
   lsm303agr_fifo_src_reg_a_t fifo_src_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
                            (uint8_t *)&fifo_src_reg_a, 1);
   *val = fifo_src_reg_a.fss;
   return ret;
@@ -3088,12 +3088,12 @@ int32_t lsm303agr::xl_fifo_data_level_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_empty_flag_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_empty_flag_get(stmdev_ctx_t *ctx,
                                          uint8_t *val)
 {
   lsm303agr_fifo_src_reg_a_t fifo_src_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
                            (uint8_t *)&fifo_src_reg_a, 1);
   *val = fifo_src_reg_a.empty;
   return ret;
@@ -3107,12 +3107,12 @@ int32_t lsm303agr::xl_fifo_empty_flag_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_ovr_flag_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_ovr_flag_get(stmdev_ctx_t *ctx,
                                        uint8_t *val)
 {
   lsm303agr_fifo_src_reg_a_t fifo_src_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
                            (uint8_t *)&fifo_src_reg_a, 1);
   *val = fifo_src_reg_a.ovrn_fifo;
   return ret;
@@ -3126,12 +3126,12 @@ int32_t lsm303agr::xl_fifo_ovr_flag_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_fifo_fth_flag_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_fifo_fth_flag_get(stmdev_ctx_t *ctx,
                                        uint8_t *val)
 {
   lsm303agr_fifo_src_reg_a_t fifo_src_reg_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_FIFO_SRC_REG_A,
                            (uint8_t *)&fifo_src_reg_a, 1);
   *val = fifo_src_reg_a.wtm;
   return ret;
@@ -3158,11 +3158,11 @@ int32_t lsm303agr::xl_fifo_fth_flag_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::tap_conf_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_tap_conf_set(stmdev_ctx_t *ctx,
                                lsm303agr_click_cfg_a_t *val)
 {
   int32_t ret;
-  ret = this->write_reg(ctx, LSM303AGR_CLICK_CFG_A, (uint8_t *) val,
+  ret = lsm303agr_write_reg(ctx, LSM303AGR_CLICK_CFG_A, (uint8_t *) val,
                             1);
   return ret;
 }
@@ -3175,11 +3175,11 @@ int32_t lsm303agr::tap_conf_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::tap_conf_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_tap_conf_get(stmdev_ctx_t *ctx,
                                lsm303agr_click_cfg_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CLICK_CFG_A, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CLICK_CFG_A, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -3192,11 +3192,11 @@ int32_t lsm303agr::tap_conf_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::tap_source_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_tap_source_get(stmdev_ctx_t *ctx,
                                  lsm303agr_click_src_a_t *val)
 {
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CLICK_SRC_A, (uint8_t *) val,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CLICK_SRC_A, (uint8_t *) val,
                            1);
   return ret;
 }
@@ -3210,16 +3210,16 @@ int32_t lsm303agr::tap_source_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::tap_threshold_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_tap_threshold_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_click_ths_a_t click_ths_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CLICK_THS_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CLICK_THS_A,
                            (uint8_t *)&click_ths_a, 1);
 
   if (ret == 0) {
     click_ths_a.ths = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CLICK_THS_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CLICK_THS_A,
                               (uint8_t *)&click_ths_a, 1);
   }
 
@@ -3235,11 +3235,11 @@ int32_t lsm303agr::tap_threshold_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::tap_threshold_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_tap_threshold_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_click_ths_a_t click_ths_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CLICK_THS_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CLICK_THS_A,
                            (uint8_t *)&click_ths_a, 1);
   *val = click_ths_a.ths;
   return ret;
@@ -3255,16 +3255,16 @@ int32_t lsm303agr::tap_threshold_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::shock_dur_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_shock_dur_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_time_limit_a_t time_limit_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_TIME_LIMIT_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_TIME_LIMIT_A,
                            (uint8_t *)&time_limit_a, 1);
 
   if (ret == 0) {
     time_limit_a.tli = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_TIME_LIMIT_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_TIME_LIMIT_A,
                               (uint8_t *)&time_limit_a, 1);
   }
 
@@ -3281,11 +3281,11 @@ int32_t lsm303agr::shock_dur_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::shock_dur_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_shock_dur_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_time_limit_a_t time_limit_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_TIME_LIMIT_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_TIME_LIMIT_A,
                            (uint8_t *)&time_limit_a, 1);
   *val = time_limit_a.tli;
   return ret;
@@ -3302,16 +3302,16 @@ int32_t lsm303agr::shock_dur_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::quiet_dur_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_quiet_dur_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_time_latency_a_t time_latency_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_TIME_LATENCY_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_TIME_LATENCY_A,
                            (uint8_t *)&time_latency_a, 1);
 
   if (ret == 0) {
     time_latency_a.tla = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_TIME_LATENCY_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_TIME_LATENCY_A,
                               (uint8_t *)&time_latency_a, 1);
   }
 
@@ -3328,11 +3328,11 @@ int32_t lsm303agr::quiet_dur_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::quiet_dur_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_quiet_dur_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_time_latency_a_t time_latency_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_TIME_LATENCY_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_TIME_LATENCY_A,
                            (uint8_t *)&time_latency_a, 1);
   *val = time_latency_a.tla;
   return ret;
@@ -3349,17 +3349,17 @@ int32_t lsm303agr::quiet_dur_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::double_tap_timeout_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_double_tap_timeout_set(stmdev_ctx_t *ctx,
                                          uint8_t val)
 {
   lsm303agr_time_window_a_t time_window_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_TIME_WINDOW_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_TIME_WINDOW_A,
                            (uint8_t *)&time_window_a, 1);
 
   if (ret == 0) {
     time_window_a.tw = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_TIME_WINDOW_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_TIME_WINDOW_A,
                               (uint8_t *)&time_window_a, 1);
   }
 
@@ -3377,12 +3377,12 @@ int32_t lsm303agr::double_tap_timeout_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::double_tap_timeout_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_double_tap_timeout_get(stmdev_ctx_t *ctx,
                                          uint8_t *val)
 {
   lsm303agr_time_window_a_t time_window_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_TIME_WINDOW_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_TIME_WINDOW_A,
                            (uint8_t *)&time_window_a, 1);
   *val = time_window_a.tw;
   return ret;
@@ -3411,16 +3411,16 @@ int32_t lsm303agr::double_tap_timeout_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::act_threshold_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_act_threshold_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_act_ths_a_t act_ths_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_ACT_THS_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_ACT_THS_A,
                            (uint8_t *)&act_ths_a, 1);
 
   if (ret == 0) {
     act_ths_a.acth = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_ACT_THS_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_ACT_THS_A,
                               (uint8_t *)&act_ths_a, 1);
   }
 
@@ -3437,11 +3437,11 @@ int32_t lsm303agr::act_threshold_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::act_threshold_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_act_threshold_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_act_ths_a_t act_ths_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_ACT_THS_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_ACT_THS_A,
                            (uint8_t *)&act_ths_a, 1);
   *val = act_ths_a.acth;
   return ret;
@@ -3455,16 +3455,16 @@ int32_t lsm303agr::act_threshold_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::act_timeout_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm303agr_act_timeout_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm303agr_act_dur_a_t act_dur_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_ACT_DUR_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_ACT_DUR_A,
                            (uint8_t *)&act_dur_a, 1);
 
   if (ret == 0) {
     act_dur_a.actd = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_ACT_DUR_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_ACT_DUR_A,
                               (uint8_t *)&act_dur_a, 1);
   }
 
@@ -3479,11 +3479,11 @@ int32_t lsm303agr::act_timeout_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::act_timeout_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t lsm303agr_act_timeout_get(stmdev_ctx_t *ctx, uint8_t *val)
 {
   lsm303agr_act_dur_a_t act_dur_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_ACT_DUR_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_ACT_DUR_A,
                            (uint8_t *)&act_dur_a, 1);
   *val = act_dur_a.actd;
   return ret;
@@ -3510,17 +3510,17 @@ int32_t lsm303agr::act_timeout_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_spi_mode_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_spi_mode_set(stmdev_ctx_t *ctx,
                                   lsm303agr_sim_a_t val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
 
   if (ret == 0) {
     ctrl_reg4_a.spi_enable = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CTRL_REG4_A,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CTRL_REG4_A,
                               (uint8_t *)&ctrl_reg4_a, 1);
   }
 
@@ -3535,12 +3535,12 @@ int32_t lsm303agr::xl_spi_mode_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::xl_spi_mode_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_xl_spi_mode_get(stmdev_ctx_t *ctx,
                                   lsm303agr_sim_a_t *val)
 {
   lsm303agr_ctrl_reg4_a_t ctrl_reg4_a;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CTRL_REG4_A,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CTRL_REG4_A,
                            (uint8_t *)&ctrl_reg4_a, 1);
 
   switch (ctrl_reg4_a.spi_enable) {
@@ -3568,17 +3568,17 @@ int32_t lsm303agr::xl_spi_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_i2c_interface_set(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_i2c_interface_set(stmdev_ctx_t *ctx,
                                         lsm303agr_i2c_dis_m_t val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
 
   if (ret == 0) {
     cfg_reg_c_m.i2c_dis = (uint8_t)val;
-    ret = this->write_reg(ctx, LSM303AGR_CFG_REG_C_M,
+    ret = lsm303agr_write_reg(ctx, LSM303AGR_CFG_REG_C_M,
                               (uint8_t *)&cfg_reg_c_m, 1);
   }
 
@@ -3593,12 +3593,12 @@ int32_t lsm303agr::mag_i2c_interface_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm303agr::mag_i2c_interface_get(stmdev_ctx_t *ctx,
+int32_t lsm303agr_mag_i2c_interface_get(stmdev_ctx_t *ctx,
                                         lsm303agr_i2c_dis_m_t *val)
 {
   lsm303agr_cfg_reg_c_m_t cfg_reg_c_m;
   int32_t ret;
-  ret = this->read_reg(ctx, LSM303AGR_CFG_REG_C_M,
+  ret = lsm303agr_read_reg(ctx, LSM303AGR_CFG_REG_C_M,
                            (uint8_t *)&cfg_reg_c_m, 1);
 
   switch (cfg_reg_c_m.i2c_dis) {

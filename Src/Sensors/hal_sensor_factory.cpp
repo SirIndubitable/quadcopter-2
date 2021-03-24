@@ -1,21 +1,20 @@
 /****************************************************************************************
-* File: i2c.cpp
+* File: hal_sensor_factory.cpp
 *
-* Description: I2C communication protocol object
+* Description: This isn't really a factory, it just creates global variables for the
+*              hardware sensors
 *
 * Created by Matt Olson
 ****************************************************************************************/
-//#if defined(HAL_I2C_MODULE_ENABLED)
+
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
-#include "i2c.h"
+#include "Sensors\hal.h"
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
 *--------------------------------------------------------------------------------------*/
-#define _I2C_READ_MASK(VAL)        ((VAL) | 0b00000001)
-#define _I2C_WRITE_MASK(VAL)       ((VAL) & 0b11111110)
 
 /*---------------------------------------------------------------------------------------
 *                                        TYPES
@@ -26,30 +25,42 @@
 *--------------------------------------------------------------------------------------*/
 
 /*---------------------------------------------------------------------------------------
+*                             PRIVATE FUNCTION PROTOTYPES
+*--------------------------------------------------------------------------------------*/
+#if defined (STM32F303xC)
+#endif
+
+/*---------------------------------------------------------------------------------------
 *                                      VARIABLES
 *--------------------------------------------------------------------------------------*/
+#if defined (STM32F303xC)
+    //LSM303AGR accel(&hi2c1);
+
+    LED led_NW(GPIOE, GPIO_PIN_8);
+    LED led_N(GPIOE, GPIO_PIN_9);
+    LED led_NE(GPIOE, GPIO_PIN_10);
+    LED led_E(GPIOE, GPIO_PIN_11);
+    LED led_SE(GPIOE, GPIO_PIN_12);
+    LED led_S(GPIOE, GPIO_PIN_13);
+    LED led_SW(GPIOE, GPIO_PIN_14);
+    LED led_W(GPIOE, GPIO_PIN_15);
+
+#elif defined (STM32F407xx)
+    #include "spi.h"
+    SPI accel_spi(&hspi1, ACCEL_CS_GPIO_Port, ACCEL_CS_Pin);
+    LIS3DSH accel(&accel_spi);
+
+    LED led_W(LED_W_GPIO_Port, LED_W_Pin);
+    LED led_N(LED_N_GPIO_Port, LED_N_Pin);
+    LED led_E(LED_E_GPIO_Port, LED_E_Pin);
+    LED led_S(LED_S_GPIO_Port, LED_S_Pin);
+#endif
+
+//Accelerometer* accelerometer = &accel;
 
 /*---------------------------------------------------------------------------------------
 *                                     PROCEDURES
 *--------------------------------------------------------------------------------------*/
 
-I2C::I2C(I2C_HandleTypeDef* i2c)
-{
-    this->m_i2c = i2c;
-}
-
-void I2C::Init(void)
-{
-}
-
-void I2C::ReadReg(uint8_t regAddress, uint8_t* data, uint16_t dataSize)
-{
-    HAL_I2C_Master_Receive(this->m_i2c, _I2C_READ_MASK(regAddress << 1), data, dataSize, 50);
-}
-
-void I2C::WriteReg(uint8_t regAddress, uint8_t* outData, uint16_t dataSize)
-{
-    HAL_I2C_Master_Transmit(this->m_i2c, _I2C_WRITE_MASK(regAddress << 1), outData, dataSize, 50);
-}
-
-//#endif // defined(HAL_I2C_MODULE_ENABLED)
+#if defined (STM32F303xC)
+#endif

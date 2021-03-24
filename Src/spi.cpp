@@ -9,6 +9,7 @@
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
+#if defined(HAL_SPI_MODULE_ENABLED)
 #include "spi.h"
 
 /*---------------------------------------------------------------------------------------
@@ -67,3 +68,5 @@ void SPI::WriteReg(uint8_t regAddress, uint8_t* outData, uint16_t dataSize)
     HAL_SPI_Transmit(this->m_spi, outData, dataSize, 50);
     this->CS_Set();
 }
+
+#endif // defined(HAL_SPI_MODULE_ENABLED)

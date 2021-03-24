@@ -30,41 +30,45 @@
 /*---------------------------------------------------------------------------------------
 *                                      VARIABLES
 *--------------------------------------------------------------------------------------*/
+lis3dsh_md_t mode{ lis3dsh_md_t::LIS3DSH_100Hz, lis3dsh_md_t::LIS3DSH_2g };
 
 /*---------------------------------------------------------------------------------------
 *                                     PROCEDURES
 *--------------------------------------------------------------------------------------*/
-LIS3DSH::LIS3DSH(ISensorCommunication* sensor)
+static int32_t spi_write(void *handle, uint8_t reg, uint8_t *bufp, uint16_t len)
 {
-    this->m_sensor = sensor;
-    this->X = 0.0;
-    this->Y = 0.0;
-    this->Z = 0.0;
+    //SPI_HandleTypeDef* spi_handle = (SPI_HandleTypeDef*)handle;
+
+    return (int32_t)HAL_ERROR;
+}
+
+static int32_t spi_read(void *handle, uint8_t reg, uint8_t *bufp, uint16_t len)
+{
+    //SPI_HandleTypeDef* spi_handle = (SPI_HandleTypeDef*)handle;
+
+    return (int32_t)HAL_ERROR;
+}
+
+LIS3DSH::LIS3DSH(SPI_HandleTypeDef* spi_handle) : Accelerometer()
+{
+    this->m_sensor.write_reg = spi_write;
+    this->m_sensor.read_reg = spi_read;
+    this->m_sensor.handle = (void*)spi_handle;
 }
 
 void LIS3DSH::Init(void)
 {
-    this->m_sensor->Init();
+    lis3dsh_init_set(&this->m_sensor, LIS3DSH_DRV_RDY);
 
-    // Write CTRL_REG4 (0x20) to enable XYZ (xxxxx111) to continuously update (xxxx0xxx) at 100Hz (0110xxx)
-    uint8_t ctrl_reg4_data = 0b01100111;
-    this->m_sensor->WriteReg(WRITE_MASK(0x20), &ctrl_reg4_data, 1);
+    lis3dsh_mode_set(&this->m_sensor, &mode);
 }
 
 void LIS3DSH::UpdateData(void)
 {
-    uint16_t x, y, z;
-    uint8_t buffer[6];
+    lis3dsh_data_t data;
+    lis3dsh_data_get(&this->m_sensor, &mode, &data);
 
-    // Make the highest bit a 1 to indicate to the sensor should read the register instead of write to it
-    // Read 6 registers, X_Low, X_High, Y_Low, Y_High, Z_Low, Z_High
-    this->m_sensor->ReadReg(READ_MASK(0x28), buffer, 6);
-
-    x = ((uint16_t)buffer[1] << 8) | buffer[0];
-    y = ((uint16_t)buffer[3] << 8) | buffer[2];
-    z = ((uint16_t)buffer[5] << 8) | buffer[4];
-
-    this->X = ((int16_t)x) / 2000.0;
-    this->Y = ((int16_t)y) / 2000.0;
-    this->Z = ((int16_t)z) / 2000.0;
+    this->X = data.xl.mg[0];
+    this->Y = data.xl.mg[1];
+    this->Z = data.xl.mg[2];
 }

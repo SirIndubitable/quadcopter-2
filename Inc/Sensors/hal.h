@@ -1,12 +1,12 @@
 /****************************************************************************************
-* File: lis3dsh.h
+* File: hal.h
 *
-* Description: The definition of the lis3dsh object
+* Description: 
 *
 * Created by Matt Olson
 ****************************************************************************************/
-#ifndef _LIS3DSH_H
-#define _LIS3DSH_H
+#ifndef SENSORS_HAL_H_
+#define SENSORS_HAL_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,10 +15,14 @@ extern "C" {
 /*---------------------------------------------------------------------------------------
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
-#include "stm32_hal.h"
-#include "iSensorCommunication.h"
-#include "Sensors/accelerometer.h"
-#include "lis3dsh_reg.h"
+#include "main.h"
+#include "led.h"
+
+#if defined (STM32F303xC)
+    #include "Sensors/lsm303agr.h"
+#elif defined (STM32F407xx)
+    #include "Sensors/lis3dsh.h"
+#endif
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -27,15 +31,6 @@ extern "C" {
 /*---------------------------------------------------------------------------------------
 *                                        TYPES
 *--------------------------------------------------------------------------------------*/
-class LIS3DSH : public Accelerometer
-{
-private:
-    stmdev_ctx_t m_sensor;
-public:
-    LIS3DSH(SPI_HandleTypeDef* spi_handle);
-    void Init(void);
-    void UpdateData(void);
-};
 
 /*---------------------------------------------------------------------------------------
 *                                   MEMORY CONSTANTS
@@ -44,9 +39,20 @@ public:
 /*---------------------------------------------------------------------------------------
 *                                      VARIABLES
 *--------------------------------------------------------------------------------------*/
+//extern Accelerometer* accelerometer;
+extern LED led_W;
+extern LED led_N;
+extern LED led_E;
+extern LED led_S;
+#if defined(STM32F303xC)
+    extern LED led_NW;
+    extern LED led_NE;
+    extern LED led_SE;
+    extern LED led_SW;
+#endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif // SENSORS_HAL_H_

@@ -1,12 +1,12 @@
 /****************************************************************************************
-* File: lis3dsh.h
+* File: accelerometer.h
 *
-* Description: The definition of the lis3dsh object
+* Description: The definition of the spi object
 *
 * Created by Matt Olson
 ****************************************************************************************/
-#ifndef _LIS3DSH_H
-#define _LIS3DSH_H
+#ifndef ACCELEROMETER_H_
+#define ACCELEROMETER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -16,9 +16,6 @@ extern "C" {
 *                                       INCLUDES
 *--------------------------------------------------------------------------------------*/
 #include "stm32_hal.h"
-#include "iSensorCommunication.h"
-#include "Sensors/accelerometer.h"
-#include "lis3dsh_reg.h"
 
 /*---------------------------------------------------------------------------------------
 *                                   LITERAL CONSTANTS
@@ -27,14 +24,18 @@ extern "C" {
 /*---------------------------------------------------------------------------------------
 *                                        TYPES
 *--------------------------------------------------------------------------------------*/
-class LIS3DSH : public Accelerometer
+class Accelerometer
 {
 private:
-    stmdev_ctx_t m_sensor;
+
+protected:
+
 public:
-    LIS3DSH(SPI_HandleTypeDef* spi_handle);
-    void Init(void);
-    void UpdateData(void);
+    int16_t raw_data[3];
+    float X, Y, Z;
+    Accelerometer();
+    virtual void Init(void) = 0;
+    virtual void UpdateData(void) = 0;
 };
 
 /*---------------------------------------------------------------------------------------
@@ -49,4 +50,4 @@ public:
 }
 #endif
 
-#endif
+#endif // ACCELEROMETER_H_
